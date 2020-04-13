@@ -2,8 +2,8 @@ import React from 'react';
 
 const Navbar = () => {
     return (
-        <nav>
-            <h1>Some Hard Fucking Exercise Blog</h1>
+        <nav style={{textAlign: 'center'}}>
+            <h1>Some Hard Fucking Workout</h1>
         </nav>
     )
 }
