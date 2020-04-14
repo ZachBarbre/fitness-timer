@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const TimerContainer = styled.section`
-        min-width: 320px;
+        min-width: 300px;
         max-width: 580px;
         background-color: #B02030;
         color: #FFF;

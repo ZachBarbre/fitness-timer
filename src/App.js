@@ -5,7 +5,7 @@ import Timer from './components/Timer.jsx';
 import Blog from './components/Blog.jsx';
 
   const Wrapper = styled.div`
-    margin: 2%;
+    margin: 2% auto;
   `;
 
   const GetAnotherButton = styled.button`
