@@ -1,32 +1,73 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause, faRedo } from '@fortawesome/free-solid-svg-icons'
 import { TimerContainer, MainTime, Exercise, TimerDetails, Rounds, Controls } from './TimerStyles';
 
 const Timer = () => {
     const roundMinutes = 0;
-    const roundSeconds = 0;
+    const roundSeconds = 5;
+    const totalRounds = 2; 
+    const restMinutes = 0;
+    const restSeconds = 30;
+    const workoutType = 'rounds';
     
     const [isRunning, setIsRunning] = useState(false);
     const [seconds, setSeconds] = useState(roundSeconds)
     const [minutes, setMinutes] = useState(roundMinutes)
+    const [round, setRound] = useState(1)
     const timer = useRef(false);
 
-    useEffect(() => {
+    const runningClock = useCallback(() => {
         if(isRunning){
-             timer.current = setTimeout(() => {
-                if (seconds === 59){
-                    setSeconds(0);
-                    setMinutes(minutes + 1)
-                } else {
-                    setSeconds(seconds + 1)
-                }
-            }, 1000);
+            timer.current = setTimeout(() => {
+               if (seconds === 59){
+                   setSeconds(0);
+                   setMinutes(minutes + 1)
+               } else {
+                   setSeconds(seconds + 1)
+               }
+           }, 1000);
+       }
+    }, [seconds, minutes, isRunning])
+
+    const roundClock = useCallback(() => {
+        const time = seconds + minutes;
+        if (time === 0 && round === totalRounds ){
+            clearTimeout(timer.current);
+            setIsRunning(false);
+        }
+        if (time === 0 && round !== totalRounds) {
+            setMinutes(roundMinutes);
+            setSeconds(roundSeconds);
+            setRound(round + 1);
+        }
+        if(isRunning){
+            timer.current = setTimeout(() => {
+               if (seconds === 0){
+                   setSeconds(59);
+                   setMinutes(minutes - 1)
+               } else {
+                   setSeconds(seconds - 1)
+               }
+           }, 1000);
+       }
+    }, [seconds, minutes, isRunning, round, totalRounds])
+    
+    useEffect(() => {
+        switch(workoutType){
+            case 'runningClock':
+                runningClock()
+                break
+            case 'rounds':
+                roundClock()
+                break
+            default:
+                console.log('something did not work');
         }
         return () => {
             clearTimeout(timer.current)
         }
-    },[seconds, minutes, isRunning]);
+    },[runningClock, roundClock]);
 
     const handleStart = () => {
         if (isRunning){
@@ -58,7 +99,7 @@ const Timer = () => {
                     <FontAwesomeIcon icon={faRedo} />
                 </Controls>
                 <Rounds>
-                    <p>Rounds</p>
+                    <p>{totalRounds > 0 ? `Rounds: ${round} of ${totalRounds}` : 'Go until finished!'}</p>
                 </Rounds>
                 <Controls onClick={handleStart}>
                     {isRunning ? <FontAwesomeIcon icon={faPause} /> : <FontAwesomeIcon icon={faPlay} />}
