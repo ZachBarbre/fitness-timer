@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Navbar from './components/Navbar.jsx';
 import Timer from './components/Timer.jsx';
 import Blog from './components/Blog.jsx';
+import { workoutArray } from './data/workoutData';
 
   const Wrapper = styled.div`
     margin: 2% auto;
@@ -27,16 +28,25 @@ import Blog from './components/Blog.jsx';
 
 const App = () => {
 
+  const [workoutData, setWorkoutData] = useState(
+    workoutArray[Math.floor(Math.random() * workoutArray.length)]
+  );
+
+  const randomWorkout = () => {
+    const ranNum = Math.floor(Math.random() * workoutArray.length)
+    setWorkoutData(workoutArray[ranNum]);
+  }
+
   return (
     <div className="App">
       <header>
         <Navbar />
       </header>
       <Wrapper>
-        <Timer />
-        <Blog />
+        <Timer workoutData={workoutData}/>
+        <Blog workoutData={workoutData}/>
         <CenterItem>
-          <GetAnotherButton>That's too fucking hard! Give me another!</GetAnotherButton>
+          <GetAnotherButton onClick={randomWorkout}>That's too fucking hard! Give me another!</GetAnotherButton>
         </CenterItem>
       </Wrapper>
     </div>

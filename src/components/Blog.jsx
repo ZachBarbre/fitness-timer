@@ -9,18 +9,19 @@ const BlogWrapper = styled.div`
     padding: 0 2% 2% 2%;
 `;
 
-const Blog = () => (
-    <BlogWrapper>
-        <h2>Workout Name</h2>
-        <p>Workout Descrption. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis fugit corrupti laborum neque expedita quas quam. Assumenda ducimus dignissimos enim? Iste quos earum itaque harum! Repellat corporis tempore rerum quisquam.</p>
-        <p>Rounds</p>
-        <ul>
-            <li>Do this </li>
-            <li>Do that </li>
-            <li>Do something </li>
-            <li>Do the death thing </li>
-        </ul>
-    </BlogWrapper>
-)
+const Blog = ({ workoutData }) => {
+    const { workoutName, workoutDescription, workout } = workoutData;
+    return (
+        <BlogWrapper>
+            <h2>{workoutName}</h2>
+            <p>{workoutDescription}</p>
+            <ul>
+                {workout.map((exercise, index) => (
+                    <li key={`${exercise}-${index}`}>{exercise}</li>
+                ))}
+            </ul>
+        </BlogWrapper>
+    )
+}
 
 export default Blog;
