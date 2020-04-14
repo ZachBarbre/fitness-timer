@@ -5,18 +5,20 @@ import { TimerContainer, MainTime, Exercise, TimerDetails, Rounds, Controls } fr
 
 const Timer = () => {
     const roundMinutes = 0;
-    const roundSeconds = 5;
+    const roundSeconds = 10;
     const totalRounds = 2; 
     const restMinutes = 0;
-    const restSeconds = 30;
+    const restSeconds = 5;
     const workoutType = 'rounds';
     
     const [isRunning, setIsRunning] = useState(false);
     const [seconds, setSeconds] = useState(roundSeconds)
     const [minutes, setMinutes] = useState(roundMinutes)
     const [round, setRound] = useState(1)
+    const [resting, setResting] = useState(false);
     const timer = useRef(false);
 
+    // This is if the working uses a running clock. Only goes up. 
     const runningClock = useCallback(() => {
         if(isRunning){
             timer.current = setTimeout(() => {
@@ -30,28 +32,48 @@ const Timer = () => {
        }
     }, [seconds, minutes, isRunning])
 
+    // This is if there are rounds with rest between the rounds. It runs down. 
     const roundClock = useCallback(() => {
         const time = seconds + minutes;
-        if (time === 0 && round === totalRounds ){
-            clearTimeout(timer.current);
-            setIsRunning(false);
+
+        if(resting) {
+            if(time === 0){
+                setMinutes(roundMinutes);
+                setSeconds(roundSeconds);
+                setRound(round + 1);
+                setResting(false);
+            } else {
+                timer.current = setTimeout(() => {
+                    if (seconds === 0){
+                        setSeconds(59);
+                        setMinutes(minutes - 1)
+                    } else {
+                        setSeconds(seconds - 1)
+                    }
+                }, 1000);
+            }
+        } else {
+            if (time === 0 && round === totalRounds ){
+                clearTimeout(timer.current);
+                setIsRunning(false);
+            }
+            if (time === 0 && round !== totalRounds) {
+                setMinutes(restMinutes);
+                setSeconds(restSeconds);
+                setResting(true);
+            }
+            if(isRunning){
+                timer.current = setTimeout(() => {
+                   if (seconds === 0){
+                       setSeconds(59);
+                       setMinutes(minutes - 1)
+                   } else {
+                       setSeconds(seconds - 1)
+                   }
+               }, 1000);
+           }
         }
-        if (time === 0 && round !== totalRounds) {
-            setMinutes(roundMinutes);
-            setSeconds(roundSeconds);
-            setRound(round + 1);
-        }
-        if(isRunning){
-            timer.current = setTimeout(() => {
-               if (seconds === 0){
-                   setSeconds(59);
-                   setMinutes(minutes - 1)
-               } else {
-                   setSeconds(seconds - 1)
-               }
-           }, 1000);
-       }
-    }, [seconds, minutes, isRunning, round, totalRounds])
+    }, [seconds, minutes, isRunning, round, totalRounds, resting])
     
     useEffect(() => {
         switch(workoutType){
@@ -92,7 +114,7 @@ const Timer = () => {
                 {minutes >= 10 ? minutes : '0' + minutes}:{seconds >= 10 ? seconds : '0' + seconds}
             </MainTime>
             <Exercise>
-                <h2>Exercise</h2>
+                <h2>{resting ? 'Rest' : 'Exercise'}</h2>
             </Exercise>
             <TimerDetails>
                 <Controls onClick={handleRestart}>
