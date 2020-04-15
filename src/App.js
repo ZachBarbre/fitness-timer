@@ -54,10 +54,9 @@ const App = () => {
           <GetAnotherButton onClick={randomWorkout}>That's too fucking hard! Give me another!</GetAnotherButton>
         </CenterItem>
         <CenterItem>
-          <button onClick={() => demoWorkout(0)}>Demo Workout</button>
-          <button onClick={() => demoWorkout(1)}>Test RoundRest</button>
           <Konami>
-            <p>Easter Egg</p>
+            <button onClick={() => demoWorkout(0)}>Demo Workout</button>
+            <button onClick={() => demoWorkout(1)}>Test RoundRest</button>
           </Konami>
         </CenterItem>
 
