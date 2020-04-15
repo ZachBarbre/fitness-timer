@@ -1,7 +1,7 @@
 export const workoutArray = [
     {
         id: 1,
-        workoutType: 'interval',
+        workoutType: 'IntervalTimer',
         workoutName: '40/20 HIIT',
         totalRounds: 24,
         roundMinutes: 0,
@@ -20,7 +20,7 @@ export const workoutArray = [
     },
     {
         id: 2,
-        workoutType: 'running',
+        workoutType: 'RunningTimer',
         workoutName: '4x10',
         totalRounds: 1,
         roundMinutes: 0,
@@ -42,7 +42,7 @@ export const workoutArray = [
     },
     {
         id: 3,
-        workoutType: 'interval',
+        workoutType: 'IntervalTimer',
         workoutName: '90/90',
         totalRounds: 18,
         roundMinutes: 1,

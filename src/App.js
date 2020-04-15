@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Navbar from './components/Navbar.jsx';
-import Timer from './components/Timer.jsx';
+import TimerSwitch from './components/TimerSwitch.jsx';
 import Blog from './components/Blog.jsx';
 import { workoutArray } from './data/workoutData';
 
@@ -43,7 +43,7 @@ const App = () => {
         <Navbar />
       </header>
       <Wrapper>
-        <Timer workoutData={workoutData}/>
+        <TimerSwitch workoutData={workoutData}/>
         <Blog workoutData={workoutData}/>
         <CenterItem>
           <GetAnotherButton onClick={randomWorkout}>That's too fucking hard! Give me another!</GetAnotherButton>
