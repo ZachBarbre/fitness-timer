@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import Timer from './Timer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay, faPause, faRedo } from '@fortawesome/free-solid-svg-icons'
+import { TimerContainer, MainTime, Exercise, TimerDetails, Rounds, Controls } from './TimerStyles';
 
 
 const IntervalTimer = ({ workoutData }) => {
@@ -9,7 +11,6 @@ const IntervalTimer = ({ workoutData }) => {
         totalRounds, 
         restMinutes, 
         restSeconds, 
-        workoutType, 
         workout } = workoutData;
 
     let exercisesInTimer = []
@@ -24,87 +25,59 @@ const IntervalTimer = ({ workoutData }) => {
     const [resting, setResting] = useState(false);
     const timer = useRef(false)
 
-    // const intervalClock = useCallback(() => {
-    //     const time = seconds + minutes;
-
-    //     if(resting) {
-    //         if(time === 0){
-    //             setMinutes(roundMinutes);
-    //             setSeconds(roundSeconds);
-    //             setRound(round + 1);
-    //             setResting(false);
-    //         } else {
-    //             timer.current = setTimeout(() => {
-    //                 if (seconds === 0){
-    //                     setSeconds(59);
-    //                     setMinutes(minutes - 1)
-    //                 } else {
-    //                     setSeconds(seconds - 1)
-    //                 }
-    //             }, 1000);
-    //         }
-    //     } else {
-    //         if (time === 0 && round === totalRounds ){
-    //             clearTimeout(timer.current);
-    //             setIsRunning(false);
-    //         }
-    //         if (time === 0 && round !== totalRounds) {
-    //             setMinutes(restMinutes);
-    //             setSeconds(restSeconds);
-    //             setResting(true);
-    //         }
-    //         if(isRunning){
-    //             timer.current = setTimeout(() => {
-    //                if (seconds === 0){
-    //                    setSeconds(59);
-    //                    setMinutes(minutes - 1)
-    //                } else {
-    //                    setSeconds(seconds - 1)
-    //                }
-    //            }, 1000);
-    //        }
-    //     }
-    // }, [seconds, minutes, isRunning, round, totalRounds, resting, roundMinutes, roundSeconds, restMinutes, restSeconds])
+    const resetOnNewWorkout = useCallback(() =>{
+        clearTimeout(timer.current)
+        setIsRunning(false);
+        setResting(false);
+        setSeconds(roundSeconds);
+        setMinutes(roundMinutes);
+        setRound(1);
+    }, [timer, roundMinutes, roundSeconds])
+    
+    useEffect(() => {
+        resetOnNewWorkout()
+    },[workoutData, resetOnNewWorkout]);
 
     useEffect(() => {
         const time = seconds + minutes;
-
-        if(resting) {
-            if(time === 0){
-                setMinutes(roundMinutes);
-                setSeconds(roundSeconds);
-                setRound(round + 1);
-                setResting(false);
+        if(isRunning) {
+            if(resting) {
+                if(time === 0){
+                    setMinutes(roundMinutes);
+                    setSeconds(roundSeconds);
+                    setRound(round + 1);
+                    setResting(false);
+                } else {
+                    timer.current = setTimeout(() => {
+                        if (seconds === 0){
+                            setSeconds(59);
+                            setMinutes(minutes - 1)
+                        } else {
+                            setSeconds(seconds - 1)
+                        }
+                    }, 1000);
+                }
             } else {
-                timer.current = setTimeout(() => {
-                    if (seconds === 0){
-                        setSeconds(59);
-                        setMinutes(minutes - 1)
-                    } else {
-                        setSeconds(seconds - 1)
-                    }
-                }, 1000);
+                if (time === 0 && round === totalRounds ){
+                    clearTimeout(timer.current);
+                    setIsRunning(false);
+                }
+                if (time === 0 && round !== totalRounds) {
+                    setMinutes(restMinutes);
+                    setSeconds(restSeconds);
+                    setResting(true);
+                }
+                else {
+                    timer.current = setTimeout(() => {
+                       if (seconds === 0){
+                           setSeconds(59);
+                           setMinutes(minutes - 1)
+                       } else {
+                           setSeconds(seconds - 1)
+                       }
+                   }, 1000);
+               }
             }
-        } else {
-            if (time === 0 && round === totalRounds ){
-                clearTimeout(timer.current);
-                setIsRunning(false);
-            }
-            if (time === 0 && round !== totalRounds) {
-                setMinutes(restMinutes);
-                setSeconds(restSeconds);
-                setResting(true);
-            }
-            if(isRunning){
-                timer.current = setTimeout(() => {
-                   if (seconds === 0){
-                       setSeconds(59);
-                       setMinutes(minutes - 1)
-                   } else {
-                       setSeconds(seconds - 1)
-                   }
-               }, 1000);
-           }
         }
         return () => {
             clearTimeout(timer.current)
@@ -128,21 +101,26 @@ const IntervalTimer = ({ workoutData }) => {
         setResting(false);
     }
 
-    const timerProps = {
-        minutes, 
-        seconds, 
-        workoutType, 
-        resting, 
-        exercisesInTimer, 
-        round, 
-        totalRounds, 
-        isRunning, 
-        handleRestart, 
-        handleStart
-    }
-
     return(
-        <Timer {...timerProps}/>
+        <TimerContainer>
+            <MainTime>
+                {minutes >= 10 ? minutes : '0' + minutes}:{seconds >= 10 ? seconds : '0' + seconds}
+            </MainTime>
+            <Exercise>
+                <h2>{resting ? 'Rest' : exercisesInTimer[round - 1]}</h2>
+            </Exercise>
+            <TimerDetails>
+                <Controls onClick={handleRestart}>
+                    <FontAwesomeIcon icon={faRedo} />
+                </Controls>
+                <Rounds>
+                    <p>{`Rounds: ${round} of ${totalRounds}`}</p>
+                </Rounds>
+                <Controls onClick={handleStart}>
+                    {isRunning ? <FontAwesomeIcon icon={faPause} /> : <FontAwesomeIcon icon={faPlay} />}
+                </Controls>
+            </TimerDetails>
+        </TimerContainer>
     )
 }
 
