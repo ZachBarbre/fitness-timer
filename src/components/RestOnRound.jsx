@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause, faRedo } from '@fortawesome/free-solid-svg-icons'
 import { TimerContainer, MainTime, Exercise, TimerDetails, Rounds, Controls } from './TimerStyles';
-
+import { beep } from '../utils/oscPlay';
 
 const RestOnRound = ({ workoutData }) => {
     const { 
@@ -44,6 +44,7 @@ const RestOnRound = ({ workoutData }) => {
                     setMinutes(intervalMinutes);
                     setSeconds(intervalSeconds);
                     setRound(round + 1);
+                    beep(10, 520, 200);
                     setResting(false);
                 } else {
                     timer.current = setTimeout(() => {
@@ -56,31 +57,35 @@ const RestOnRound = ({ workoutData }) => {
                     }, 1000);
                 }
             } else {
-                if (time === 0 && round === totalRounds ){
+                if (time === 0 && round === totalRounds && interval === totalIntervals){
                     clearTimeout(timer.current);
+                    beep(10, 220, 300);
                     setIsRunning(false);
+                } else {
+                    if (time === 0 && interval === totalIntervals) {
+                        setMinutes(restMinutes);
+                        setSeconds(restSeconds);
+                        beep(10, 520, 200);
+                        setResting(true);
+                    }
+                    if (time === 0 && interval !== totalIntervals) {
+                        setMinutes(intervalMinutes);
+                        setSeconds(intervalSeconds);
+                        setInterval(interval + 1);
+                        beep(10, 520, 200);
+                    }
+                    else {
+                        timer.current = setTimeout(() => {
+                           if (seconds === 0){
+                               setSeconds(59);
+                               setMinutes(minutes - 1)
+                           } else {
+                               setSeconds(seconds - 1)
+                           }
+                       }, 1000);
+                   }
                 }
-                if (time === 0 && interval === totalIntervals) {
-                    setMinutes(restMinutes);
-                    setSeconds(restSeconds);
-                    setResting(true);
                 }
-                if (time === 0 && interval !== totalIntervals) {
-                    setMinutes(intervalMinutes);
-                    setSeconds(intervalSeconds);
-                    setInterval(interval + 1);
-                }
-                else {
-                    timer.current = setTimeout(() => {
-                       if (seconds === 0){
-                           setSeconds(59);
-                           setMinutes(minutes - 1)
-                       } else {
-                           setSeconds(seconds - 1)
-                       }
-                   }, 1000);
-               }
-            }
         }
         return () => {
             clearTimeout(timer.current)
@@ -93,8 +98,10 @@ const RestOnRound = ({ workoutData }) => {
     const handleStart = () => {
         if (isRunning){
             setIsRunning(false);
+            beep(10, 520, 200);
         } else {
             setIsRunning(true);
+            beep(10, 520, 200);
         }
     }
 
@@ -108,7 +115,7 @@ const RestOnRound = ({ workoutData }) => {
     }
 
     return(
-        <TimerContainer>
+        <TimerContainer resting={resting}>
             <MainTime>
                 {minutes >= 10 ? minutes : '0' + minutes}:{seconds >= 10 ? seconds : '0' + seconds}
             </MainTime>

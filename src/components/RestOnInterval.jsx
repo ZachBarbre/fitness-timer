@@ -100,8 +100,10 @@ const RestOnInterval = ({ workoutData }) => {
     const handleStart = () => {
         if (isRunning){
             setIsRunning(false);
+            beep(10, 520, 200);
         } else {
             setIsRunning(true);
+            beep(10, 520, 200);
         }
     }
 

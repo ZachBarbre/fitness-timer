@@ -56,4 +56,21 @@ export const workoutArray = [
             'Jumping Lunges'
         ]
     },
+    {
+        id: 4,
+        workoutType: 'RestOnRound',
+        workoutName: 'EMOM',
+        totalRounds: 4,
+        intervalMinutes: 1,
+        intervalSeconds: 0,
+        restMinutes: 1,
+        restSeconds: 0,
+        workoutDescription: 'Every minute on the minute do the reps of the primary exercise, then finish the minute with as many reps as possible of the secondary exercise. After 4 sets rest for a minute',
+        workout: [
+            '10 Pushups, then Mountain Jacks',
+            '10 Lunges ea, then Speed Skaters',
+            '10 Situps, then Flutter Kicks',
+            '6 Burpees, then Plank'
+        ]
+    },
 ]

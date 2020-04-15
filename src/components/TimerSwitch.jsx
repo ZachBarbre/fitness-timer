@@ -1,10 +1,12 @@
 import React from 'react';
 import RestOnInterval from './RestOnInterval';
 import RunningTimer from './RunningTimer';
+import RestOnRound from './RestOnRound'
 
 const Timers = {
     RestOnInterval,
-    RunningTimer
+    RunningTimer,
+    RestOnRound
 }
 
 const TimerSwitch = ({ workoutData }) => {

@@ -5,6 +5,7 @@ import TimerSwitch from './components/TimerSwitch.jsx';
 import Blog from './components/Blog.jsx';
 import { workoutArray } from './data/workoutData';
 import { demoData } from './data/demoData';
+import Konami from 'react-konami-code';
 
 const Wrapper = styled.div`
   margin: 2% auto;
@@ -53,8 +54,12 @@ const App = () => {
           <GetAnotherButton onClick={randomWorkout}>That's too fucking hard! Give me another!</GetAnotherButton>
         </CenterItem>
         <CenterItem>
-          <button hidden={''} onClick={demoWorkout}>Demo Workout</button>
+          <button onClick={demoWorkout}>Demo Workout</button>
+          <Konami>
+            <p>Easter Egg</p>
+          </Konami>
         </CenterItem>
+
       </Wrapper>
     </div>
   );
