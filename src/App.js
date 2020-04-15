@@ -38,8 +38,8 @@ const App = () => {
     const ranNum = Math.floor(Math.random() * workoutArray.length)
     setWorkoutData(workoutArray[ranNum]);
   }
-  const demoWorkout = () => {
-    setWorkoutData(demoData);
+  const demoWorkout = (index) => {
+    setWorkoutData(demoData[index]);
   }
 
   return (
@@ -54,7 +54,8 @@ const App = () => {
           <GetAnotherButton onClick={randomWorkout}>That's too fucking hard! Give me another!</GetAnotherButton>
         </CenterItem>
         <CenterItem>
-          <button onClick={demoWorkout}>Demo Workout</button>
+          <button onClick={() => demoWorkout(0)}>Demo Workout</button>
+          <button onClick={() => demoWorkout(1)}>Test RoundRest</button>
           <Konami>
             <p>Easter Egg</p>
           </Konami>
