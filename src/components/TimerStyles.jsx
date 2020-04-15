@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const TimerContainer = styled.section`
         min-width: 300px;
         max-width: 580px;
-        background-color: #B02030;
+        background-color: ${props => props.resting ? '#20b058' : '#B02030'};
         color: #FFF;
         margin: 1% auto;
     `;
@@ -32,7 +32,7 @@ export const Rounds = styled.div`
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
 `;
 
 export const Controls = styled.div`

@@ -1,9 +1,9 @@
 import React from 'react';
-import IntervalTimer from './IntervalTimer';
+import RestOnInterval from './RestOnInterval';
 import RunningTimer from './RunningTimer';
 
 const Timers = {
-    IntervalTimer,
+    RestOnInterval,
     RunningTimer
 }
 

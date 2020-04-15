@@ -4,27 +4,28 @@ import Navbar from './components/Navbar.jsx';
 import TimerSwitch from './components/TimerSwitch.jsx';
 import Blog from './components/Blog.jsx';
 import { workoutArray } from './data/workoutData';
+import { demoData } from './data/demoData';
 
-  const Wrapper = styled.div`
-    margin: 2% auto;
-  `;
+const Wrapper = styled.div`
+  margin: 2% auto;
+`;
 
-  const GetAnotherButton = styled.button`
-    background: #2078b0;
-    margin: 2% auto;
-    padding: 1% 2%;
-    color: #FFF;
-    font-size: 1.1rem;
-    min-width: 320px;
-    max-width: 580px;
-  `;
+const GetAnotherButton = styled.button`
+  background: #2078b0;
+  margin: 2% auto;
+  padding: 1% 2%;
+  color: #FFF;
+  font-size: 1.1rem;
+  min-width: 320px;
+  max-width: 580px;
+`;
 
-  const CenterItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  `;
+const CenterItem = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+`;
 
 const App = () => {
 
@@ -35,6 +36,9 @@ const App = () => {
   const randomWorkout = () => {
     const ranNum = Math.floor(Math.random() * workoutArray.length)
     setWorkoutData(workoutArray[ranNum]);
+  }
+  const demoWorkout = () => {
+    setWorkoutData(demoData);
   }
 
   return (
@@ -47,6 +51,9 @@ const App = () => {
         <Blog workoutData={workoutData}/>
         <CenterItem>
           <GetAnotherButton onClick={randomWorkout}>That's too fucking hard! Give me another!</GetAnotherButton>
+        </CenterItem>
+        <CenterItem>
+          <button hidden={''} onClick={demoWorkout}>Demo Workout</button>
         </CenterItem>
       </Wrapper>
     </div>
