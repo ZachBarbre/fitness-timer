@@ -30,6 +30,7 @@ const RestOnRound = ({ workoutData }) => {
         setSeconds(intervalSeconds);
         setMinutes(intervalMinutes);
         setRound(1);
+        setInterval(1)
     }, [timer, intervalMinutes, intervalSeconds])
     
     useEffect(() => {
@@ -44,6 +45,7 @@ const RestOnRound = ({ workoutData }) => {
                     setMinutes(intervalMinutes);
                     setSeconds(intervalSeconds);
                     setRound(round + 1);
+                    setInterval(1);
                     beep(10, 520, 200);
                     setResting(false);
                 } else {
