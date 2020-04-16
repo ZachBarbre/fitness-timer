@@ -19,6 +19,11 @@ const GetAnotherButton = styled.button`
   font-size: 1.1rem;
   min-width: 320px;
   max-width: 580px;
+  cursor: pointer;
+
+  &:hover {
+    background: #40a0dc;
+  }
 `;
 
 const CenterItem = styled.div`

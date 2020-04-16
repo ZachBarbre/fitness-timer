@@ -10,7 +10,7 @@ const BlogWrapper = styled.div`
 `;
 
 const Blog = ({ workoutData }) => {
-    const { workoutName, workoutDescription, workout } = workoutData;
+    const { workoutName, workoutDescription, workout, notes } = workoutData;
     return (
         <BlogWrapper>
             <h2>{workoutName}</h2>
@@ -20,6 +20,7 @@ const Blog = ({ workoutData }) => {
                     <li key={`${exercise}-${index}`}>{exercise}</li>
                 ))}
             </ul>
+            <p>{notes}</p>
         </BlogWrapper>
     )
 }

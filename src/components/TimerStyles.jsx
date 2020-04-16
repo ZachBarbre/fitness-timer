@@ -40,4 +40,14 @@ export const Controls = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+
+    &:hover {
+        color: ${props => props.resting ? '#B02030' : '#20b058'};
+        box-shadow: inset 0 0 10px ${props => props.resting ? '#B02030' : '#20b058'};
+    }
+    &:active {
+        color: #FFF;
+        box-shadow: inset 0 0 10px #FFF;
+    }
 `;

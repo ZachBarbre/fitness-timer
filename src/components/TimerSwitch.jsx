@@ -7,7 +7,7 @@ const Timers = {
     RestOnInterval,
     RunningTimer,
     RestOnRound
-}
+} // need to add a Tabata Timer type, a Continuous Clock timer type, and Count Down 
 
 const TimerSwitch = ({ workoutData }) => {
     

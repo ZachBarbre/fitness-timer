@@ -61,13 +61,13 @@ const RunningTimer = ({ workoutData }) => {
                 <h2>WORK!</h2>
             </Exercise>
             <TimerDetails>
-                <Controls onClick={handleRestart}>
+                <Controls onClick={handleRestart} resting={false}>
                     <FontAwesomeIcon icon={faRedo} />
                 </Controls>
                 <Rounds>
                     <p>Go until finished!</p>
                 </Rounds>
-                <Controls onClick={handleStart}>
+                <Controls onClick={handleStart} resting={false}>
                     {isRunning ? <FontAwesomeIcon icon={faPause} /> : <FontAwesomeIcon icon={faPlay} />}
                 </Controls>
             </TimerDetails>

@@ -123,14 +123,14 @@ const RestOnRound = ({ workoutData }) => {
                 <h2>{resting ? 'Rest' : workout[interval - 1]}</h2>
             </Exercise>
             <TimerDetails>
-                <Controls onClick={handleRestart}>
+                <Controls onClick={handleRestart} resting={resting}>
                     <FontAwesomeIcon icon={faRedo} />
                 </Controls>
                 <Rounds>
                     <p>{`Interval: ${interval} of ${totalIntervals}`}</p>
                     <p>{`Rounds: ${round} of ${totalRounds}`}</p>
                 </Rounds>
-                <Controls onClick={handleStart}>
+                <Controls onClick={handleStart} resting={resting}>
                     {isRunning ? <FontAwesomeIcon icon={faPause} /> : <FontAwesomeIcon icon={faPlay} />}
                 </Controls>
             </TimerDetails>
