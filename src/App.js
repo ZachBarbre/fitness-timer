@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import { Wrapper, CenterItem, AppFooter, 
+  GetAnotherButton, DSFImage, MeLink } from './components/AppStyles.jsx'
 import Navbar from './components/Navbar.jsx';
 import TimerSwitch from './components/TimerSwitch.jsx';
 import Blog from './components/Blog.jsx';
@@ -8,57 +9,6 @@ import { demoData } from './data/demoData';
 import Konami from 'react-konami-code';
 import dsfLogo from './dsf.png'
 import './App.css'
-
-const Wrapper = styled.div`
-  margin: 2% auto;
-`;
-
-const GetAnotherButton = styled.button`
-  background: #2078b0;
-  margin: 2% auto;
-  padding: 1% 2%;
-  color: #FFF;
-  font-size: 1.1rem;
-  min-width: 320px;
-  max-width: 580px;
-  cursor: pointer;
-
-  &:hover {
-    background: #40a0dc;
-  }
-`;
-
-const CenterItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const DSFImage = styled.img`
-  width: 150px;
-  vertical-align: middle;
-  margin-left: 3px;
-`;
-
-const AppFooter = styled.footer`
-  max-width: 520px;
-  margin: 10% auto 2px auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const MeLink = styled.a`
-  color: #000;
-  text-decoration: none;
-  margin: 2px;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
 
 const App = () => {
 
@@ -89,7 +39,6 @@ const App = () => {
           <CenterItem>
             <Konami>
               <button onClick={() => demoWorkout(0)}>Demo Workout</button>
-              <button onClick={() => demoWorkout(1)}>Test RoundRest</button>
             </Konami>
           </CenterItem>
         </Wrapper>
