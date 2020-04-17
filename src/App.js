@@ -56,9 +56,9 @@ const App = () => {
         <div>
           Created by: 
           <strong>
-          <MeLink href='https://zachbarbre.com'>
-            Zach Barbre
-          </MeLink>
+            <MeLink href='https://zachbarbre.com'>
+              Zach Barbre
+            </MeLink>
           </strong>
         </div>
         
