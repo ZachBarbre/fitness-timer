@@ -34,7 +34,9 @@ const App = () => {
           <TimerSwitch workoutData={workoutData}/>
           <Blog workoutData={workoutData}/>
           <CenterItem>
-            <GetAnotherButton onClick={randomWorkout}>That's too fucking hard! Give me another!</GetAnotherButton>
+            <GetAnotherButton onClick={randomWorkout}>
+              That's too fucking hard! Give me another!
+            </GetAnotherButton>
           </CenterItem>
           <CenterItem>
             <Konami>
@@ -56,9 +58,9 @@ const App = () => {
         <div>
           Created by: 
           <strong>
-          <MeLink href='https://zachbarbre.com'>
-            Zach Barbre
-          </MeLink>
+            <MeLink href='https://zachbarbre.com'>
+              Zach Barbre
+            </MeLink>
           </strong>
         </div>
         

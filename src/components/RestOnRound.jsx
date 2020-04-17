@@ -113,6 +113,7 @@ const RestOnRound = ({ workoutData }) => {
         setSeconds(intervalSeconds);
         setMinutes(intervalMinutes);
         setRound(1);
+        setInterval(1);
         setResting(false);
     }
 
